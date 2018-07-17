@@ -2,9 +2,6 @@
 // cmps109
 // Program #4
 
-// I modified professor McDowells code the work with 
-// the PlainDocument.
-
 import tio.*;
 import java.io.*;
 import javax.swing.text.*;
