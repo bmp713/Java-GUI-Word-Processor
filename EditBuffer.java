@@ -21,9 +21,6 @@ public class EditBuffer extends PlainDocument{
 
     /**
      *  Initialize this buffer from a specified file.
-     *
-     *@param  fileName         The file to read in.
-     *@exception  IOException  Opening the file can fail.
      */
     public EditBuffer(String fileName) throws IOException {
         buf = new StringBuffer();
@@ -54,9 +51,6 @@ public class EditBuffer extends PlainDocument{
 
     /**
      *  Dump the contents of a StringBuffer to a file.
-     *
-     *@param  fileName         The file to dump it to.
-     *@exception  IOException  Opening the file might fail.
      */
     public void write(String fileName) throws IOException {
         // FileWriter is a standard Java class in package java.io.
@@ -69,8 +63,6 @@ public class EditBuffer extends PlainDocument{
     
     /**
      *  Dump the contents of a StringBuffer the file it was read from.
-     *
-     *@exception  IOException  Opening the file might fail.
      */
     public void write() throws IOException {
         write(filename);
@@ -89,8 +81,6 @@ public class EditBuffer extends PlainDocument{
      *, the line with the cursor and the line after the line with the cursor.
      * The position of the cursor will be indicated by printing the cursor
      * character passed to the method at the location of the cursor.
-     *
-     *@param  cursor  The character to represent the position of the cursor.     
      */
     public void print(char cursor) {
         int savedPosition = position;
@@ -122,8 +112,6 @@ public class EditBuffer extends PlainDocument{
     /**
      *  Insert the specified string at the current cursor position.
      *  Leave the cursor at the end of the newly inserted string.
-     *
-     *@param  insertString  The string to insert.
      */
      public void insert(String insertString) {
          buf.insert(position, insertString);
@@ -133,7 +121,6 @@ public class EditBuffer extends PlainDocument{
 
     /**
      *  Delete the character immediately after the cursor.
-     * @return The deleted character as a String.
      */
      public String delete() {
         if (position >= buf.length()) {
@@ -148,7 +135,6 @@ public class EditBuffer extends PlainDocument{
     /**
      *  If the cursor is at the end of a line, delete the newline. Otherwise 
      *  delete from the cursor up to the end of the line leaving the newline.
-     *@return The deleted string.
      */
     public String deleteRestOfLine() {
         if (position >= buf.length()) {
@@ -171,9 +157,6 @@ public class EditBuffer extends PlainDocument{
     /**
      *  Move the cursor to the beginning of the specified line. The first line
      * is line number 1.
-     *
-     *@param  lineNumber  The line to move to.
-     *@return           The new cursor position (offset in characters from the
      * start of the buffer).
      */
     public int goTo(int lineNumber) {
@@ -196,10 +179,6 @@ public class EditBuffer extends PlainDocument{
      *  Move the cursor to the start of the next occurance of the specified
      * string. Searching begins at the current cursor postion, and ends
      * when the end of the buffer is reached.
-     *
-     *@param  pattern  The string to search for.
-     *@return           The new cursor position (offset in characters from the
-     * start of the buffer).
      */
     public int find(String pattern) {
         int newPosition = buf.toString().indexOf(pattern, position);
@@ -211,14 +190,8 @@ public class EditBuffer extends PlainDocument{
         }
     }
 
-
     /**
      *  Advance the cursor a specified number of characters.
-     *
-     *@param  count  The number of characters to move. It can be positive or
-     * negative.
-     *@return           The new cursor position (offset in characters from the
-     * start of the buffer).
      */
     public int moveChar(int count) {
         position = position + count;
@@ -234,12 +207,6 @@ public class EditBuffer extends PlainDocument{
     /**
      *  Replace the next occurance of pattern with the replacement string.
      *  Position the cursor in front of the newly inserted replacement text.
-     *
-     *@param  pattern       String to be found and replaced.
-     *@param  replacement  String to insert in place of pattern.
-     *@return           The new cursor position (offset in characters from the
-     * start of the buffer). If the pattern is not found the cursor is not moved
-     * and -1 is returned.
      */
     public int replace(String pattern, String replacement) {
         int newPosition = buf.toString().indexOf(pattern, position);
@@ -251,29 +218,19 @@ public class EditBuffer extends PlainDocument{
         return newPosition;
     }
 
-
     /**
      *  Move the cursor to the start of count lines from the current line. If
      * count is 0 move to the start of the current line.
-     *
-     *@param  count  The number of lines to move. It can be positive (forward)
-     * or negative (backward). If it is 0, move to the start of the current
-     * line.
-     *@return           The new cursor position (offset in characters from the
-     * start of the buffer).
      */
     public int moveLine(int count) {
         return move(count);
     }
-    
     
     /**
      * Return the string between the current mark and the cursor. The mark is
      * initially 0 (start of the buffer). The mark may be before or after the
      * current cursor position. If they are at the same location an empty string
      * is returned.
-     *
-     *@return The string between mark and cursor.
      */
     public String copy() {
         if (mark < position)
@@ -293,16 +250,12 @@ public class EditBuffer extends PlainDocument{
         return mark;
     }
 
-
     /**
      *  Helper used by moveLine and print. Figures out where the cursor
      *  would be if moved to the beginning of the count'th subsequent line.
      *  count can be either negative or positive.
      *  count == 0 moves to the beginning of the current line
      *  This method does NOT actually move the cursor position.
-     *
-     *@param  count     The number of lines to move.
-     *@return     The new cursor position.
      */
     private int move(int count) {
         if (count == 0) {
