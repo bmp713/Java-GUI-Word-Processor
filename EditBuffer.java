@@ -11,9 +11,6 @@ import javax.swing.text.*;
  *  This class implements an editable text buffer. The buffer maintains a
  * current cursor position. It allows for insertion, deletion, searching, and
  * replacement.
- *
- *@author     Charlie McDowell
- *@created    December 17, 2001 - last updated February 14, 2005
  */
 public class EditBuffer extends PlainDocument{
     
